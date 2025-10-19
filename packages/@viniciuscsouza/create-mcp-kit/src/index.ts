@@ -51,8 +51,6 @@ program
       console.log(`    Instala as dependências.\n`);
       console.log(`  npm run build`);
       console.log(`    Compila o projeto.\n`);
-      console.log(`  npm start`);
-      console.log(`    Inicia o servidor de desenvolvimento.\n`);
       console.log(`  npm test`);
       console.log(`    Executa os testes.\n`);
       console.log(`  npm run inspect`);
