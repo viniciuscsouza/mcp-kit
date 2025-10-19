@@ -42,6 +42,57 @@ Para trabalhar no código do MCP-Kit, você precisará configurar o ambiente de 
     npm test --workspaces
     ```
 
+## Testando o `create-mcp-kit` Localmente
+
+Se suas alterações afetam o pacote `create-mcp-kit`, é crucial testá-lo localmente. O método recomendado é usar `npm link`.
+
+1.  **Compile e Crie o Link Global:**
+    ```bash
+    # Na raiz do projeto, compile o pacote
+    npm run build --workspace=create-mcp-kit
+    
+    # Navegue até o diretório do pacote e crie o link
+    cd packages/create-mcp-kit
+    npm link
+    ```
+
+2.  **Gere um Projeto de Teste:**
+    Vá para um diretório **fora** do projeto (ex: `cd /tmp`) e rode o comando para gerar um projeto de teste.
+    ```bash
+    create-mcp-kit meu-projeto-de-teste
+    ```
+
+3.  **Resolva as Dependências Locais:**
+    O projeto gerado depende do `mcp-kit`, que também é um pacote local. Você precisa linká-lo manualmente:
+    ```bash
+    # Primeiro, crie um link global para o mcp-kit (se ainda não o fez)
+    cd /caminho/para/mcp/packages/mcp-kit
+    npm link
+
+    # Depois, vá para o seu projeto de teste recém-criado
+    cd /tmp/meu-projeto-de-teste
+
+    # E use o link para o mcp-kit
+    npm link mcp-kit
+    ```
+
+4.  **Instale e Teste:**
+    Agora, o `npm install` deve funcionar corretamente dentro de `meu-projeto-de-teste`.
+    ```bash
+    npm install
+    npm test
+    ```
+
+5.  **Remova os Links (Opcional):**
+    Após concluir os testes, você pode remover os links globais para manter seu ambiente limpo.
+    ```bash
+    # Dentro de packages/create-mcp-kit
+    npm unlink
+
+    # Dentro de packages/mcp-kit
+    npm unlink
+    ```
+
 ## Estilo de Código
 
 Buscamos manter um estilo de código consistente. Por favor, tente seguir o estilo e as convenções que você encontrar no código existente. Usamos Prettier e ESLint para garantir a consistência (configuração a ser adicionada).
