@@ -10,6 +10,8 @@ import {
   PromptOptions
 } from './decorators';
 import { AnyZodObject, IResourceProvider, ResourceDefinition, ResourceContent, ResourceParams } from './types';
+// Remover importação de RequestHandlerExtra, ServerRequest, ServerNotification
+// import type { RequestHandlerExtra, ServerRequest, ServerNotification } from '@modelcontextprotocol/sdk/shared/protocol.js';
 
 // Tipos auxiliares
 type ToolMetadata = ToolOptions & { methodName: string | symbol; inputSchema?: AnyZodObject; outputSchema?: AnyZodObject };
@@ -62,7 +64,7 @@ export class Application {
           {
             description: tool.description,
             inputSchema: tool.inputSchema?.shape,
-            outputSchema: tool.outputSchema?.shape, // Adicionado outputSchema
+            outputSchema: tool.outputSchema?.shape,
           },
           instance[tool.methodName].bind(instance)
         );
@@ -89,12 +91,12 @@ export class Application {
         const resourceDefs: ResourceDefinition[] = await instance.listResources();
         if (resourceDefs && Array.isArray(resourceDefs)) {
           for (const resourceDef of resourceDefs) {
-            const resourceId = `${providerOptions.name}.${resourceDef.name}`; // Usar name para ID interno
+            const resourceId = `${providerOptions.name}.${resourceDef.name}`;
             this.mcpServer.registerResource(
-              resourceId, // ID para o recurso
+              resourceId,
               resourceDef.uri,
               { description: resourceDef.description, mimeType: resourceDef.mimeType },
-              (uri: URL, params: ResourceParams) => { // Tipagem correta para uri e params
+              (uri: URL, params: ResourceParams) => { // Assinatura ajustada para 2 argumentos
                 console.error(`[MCP-Kit] readResource callback called with uri: ${uri.toString()}, params: ${JSON.stringify(params)}`);
                 return instance.readResource(uri.toString(), params);
               }
