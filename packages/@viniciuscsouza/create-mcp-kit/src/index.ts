@@ -33,6 +33,12 @@ program
       // Copia os arquivos do template
       await fs.copy(templatePath, projectPath);
 
+      // Atualiza o nome do projeto no package.json
+      const packageJsonPath = path.join(projectPath, 'package.json');
+      const packageJson = await fs.readJson(packageJsonPath);
+      packageJson.name = projectDirectory;
+      await fs.writeJson(packageJsonPath, packageJson, { spaces: 2 });
+
       // Renomeia o arquivo gitignore para .gitignore
       const gitignorePath = path.join(projectPath, 'gitignore');
       if (fs.existsSync(gitignorePath)) {

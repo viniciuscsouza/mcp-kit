@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "tsx src/main.ts",
+    "inspect": "npx @modelcontextprotocol/inspector node dist/main.js",
     "test": "vitest run",
     "build": "tsc"
   },

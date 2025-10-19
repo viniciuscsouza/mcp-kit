@@ -18,7 +18,7 @@ npm install
 npm start
 ```
 
-O servidor irá iniciar e aguardar conexões de um cliente MCP (como um agente de IA ou uma ferramenta de depuração).
+O servidor irá iniciar com logging habilitado e aguardar conexões de um cliente MCP (como um agente de IA ou uma ferramenta de depuração).
 
 ## Scripts Disponíveis
 

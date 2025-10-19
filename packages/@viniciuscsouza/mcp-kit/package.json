@@ -11,6 +11,9 @@
     "build": "tsc",
     "test": "vitest run"
   },
+  "dependencies": {
+    "reflect-metadata": "^0.1.13"
+  },
   "devDependencies": {
     "vitest": "^3.2.4"
   }
