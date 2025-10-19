@@ -6,8 +6,8 @@ Este repositório contém o código-fonte do **MCP-Kit**, um ecossistema de ferr
 
 O MCP-Kit é composto por três pacotes principais que vivem neste monorepo:
 
-- **`packages/mcp-kit`**: O coração do projeto. É um framework baseado em decoradores (`@Provider`, `@Tool`) que simplifica a criação de toda a lógica de um servidor MCP.
-- **`packages/create-mcp-kit`**: Uma ferramenta de linha de comando (CLI) para gerar rapidamente um novo projeto de servidor, já configurado com o MCP-Kit.
+- **`packages/@viniciuscsouza/mcp-kit`**: O coração do projeto. É um framework baseado em decoradores (`@Provider`, `@Tool`) que simplifica a criação de toda a lógica de um servidor MCP.
+- **`packages/@viniciuscsouza/create-mcp-kit`**: Uma ferramenta de linha de comando (CLI) para gerar rapidamente um novo projeto de servidor, já configurado com o MCP-Kit.
 - **`packages/example-server`**: Um servidor de exemplo que demonstra as funcionalidades do framework e serve como um guia prático.
 
 ## Recursos Principais
@@ -30,14 +30,14 @@ Existem dois caminhos principais para usar este projeto: criar seu próprio serv
 A maneira mais fácil de começar é usando o gerador de projetos. Em seu terminal, execute:
 
 ```bash
-npx create-mcp-kit meu-servidor
+npx @viniciuscsouza/create-mcp-kit meu-servidor
 ```
 
 Isso criará um novo diretório `meu-servidor` com um projeto pronto para usar. Siga as instruções no terminal para instalar as dependências e iniciar seu servidor.
 
 ### 2. Desenvolvendo o Framework (Contribuição)
 
-Se você deseja contribuir para o desenvolvimento do `mcp-kit`, siga estes passos:
+Se você deseja contribuir para o desenvolvimento do `@viniciuscsouza/mcp-kit`, siga estes passos:
 
 **Pré-requisitos:**
 - Node.js (v18+)

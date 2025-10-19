@@ -1,4 +1,4 @@
-import { Provider, Tool, Prompt, ResourceDefinition, ResourceContent } from 'mcp-kit';
+import { Provider, Tool, Prompt, ResourceDefinition, ResourceContent } from '@viniciuscsouza/mcp-kit';
 import { z } from 'zod';
 
 @Provider({

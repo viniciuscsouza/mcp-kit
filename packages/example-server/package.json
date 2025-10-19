@@ -8,6 +8,6 @@
     "build": "tsc"
   },
   "dependencies": {
-    "mcp-kit": "0.0.1"
+    "@viniciuscsouza/mcp-kit": "0.0.1"
   }
 }

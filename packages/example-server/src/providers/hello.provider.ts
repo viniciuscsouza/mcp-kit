@@ -1,6 +1,6 @@
 // Importa os decoradores do framework (que estamos construindo)
-// O path de importação será 'mcp-kit' quando o publicarmos no npm.
-import { Provider, Tool, Prompt, ResourceDefinition, ResourceContent } from 'mcp-kit';
+// O path de importação será '@viniciuscsouza/mcp-kit' quando o publicarmos no npm.
+import { Provider, Tool, Prompt, ResourceDefinition, ResourceContent } from '@viniciuscsouza/mcp-kit';
 import { z } from 'zod';
 
 @Provider({

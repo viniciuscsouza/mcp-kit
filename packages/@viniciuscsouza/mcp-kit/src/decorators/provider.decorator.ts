@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 
 // Chave única para armazenar os metadados do provider
-export const PROVIDER_KEY = 'mcp-kit:provider';
+export const PROVIDER_KEY = '@viniciuscsouza/mcp-kit:provider';
 
 export interface ProviderOptions {
   name: string;

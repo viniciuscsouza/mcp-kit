@@ -10,7 +10,7 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Adicionado
 
 - Estrutura inicial do monorepo com npm workspaces.
-- Pacote `mcp-kit` com o núcleo do framework:
+- Pacote `@viniciuscsouza/mcp-kit` com o núcleo do framework:
   - Classe `Application` para orquestração.
   - Decoradores `@Provider`, `@Tool`, `@Prompt`.
   - Lógica para descoberta de capabilities via `reflect-metadata`.
