@@ -47,6 +47,7 @@ Caso o `knowledge/mcp-knowledge-base-index.md` não seja suficiente, consulte o 
 **Sempre** que aprender algo novo crie um arquivo `*-memory.md` na pasta `knowledge`.
 **Guarde** informações importante do projeto em arquivos `*-context.md` na pasta `knowledge`.
 **Crie** arquivos de especificação `*-spec.md` na pasta `knowledge`.
+**Sempre** consulte o arquivo `knowledge/mcp-kit-project-rules.md` para entender as regras e diretrizes para projetos gerados pelo `create-mcp-kit`.
 
 ## Referências
 **Sempre** utilize o índice da base de conhecimento como ponto de partida para encontrar informações sobre o projeto e o protocolo MCP:

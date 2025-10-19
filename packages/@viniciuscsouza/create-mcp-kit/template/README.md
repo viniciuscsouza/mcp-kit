@@ -12,7 +12,7 @@ Este projeto foi gerado pela ferramenta `@viniciuscsouza/create-mcp-kit` e cont�
 npm install
 ```
 
-**2. Inicie o Servidor em Modo de Desenvolvimento:**
+**2. Inicie o Servidor:**
 
 ```bash
 npm start
@@ -25,6 +25,7 @@ O servidor irá iniciar com logging habilitado e aguardar conexões de um client
 - `npm start`: Inicia o servidor em modo de desenvolvimento com execução via `tsx`.
 - `npm run build`: Compila o projeto TypeScript para JavaScript no diretório `dist/`.
 - `npm test`: Executa todos os testes do projeto usando `vitest`.
+- `npm run inspect`: Inicia o servidor e o conecta ao MCP Inspector para depuração.
 
 ## Estrutura do Projeto
 
@@ -65,7 +66,6 @@ Uma `Tool` é uma função que o agente de IA pode executar. Para criar uma nova
   })
 })
 async sum({ a, b }: { a: number; b: number }) {
-  const result = a + b;
   return {
     content: [{
       type: 'text',
@@ -92,7 +92,6 @@ Um `Prompt` é um template de instrução que o servidor pode gerar para o agent
   })
 })
 async createStoryPrompt({ topic }: { topic: string }) {
-  const promptText = `Por favor, escreva uma história curta e criativa sobre "${topic}".`;
   return {
     messages: [
       {
@@ -184,4 +183,8 @@ describe('HelloProvider', () => {
 });
 ```
 
----
+## Documentação do MCP-Kit
+
+Para informações detalhadas sobre o desenvolvimento com o MCP-Kit, incluindo arquitetura, uso de decoradores, ciclo de vida e guias de desenvolvimento, consulte a base de conhecimento específica do projeto:
+
+- [knowledge/mcp-knowledge-base-index.md](knowledge/mcp-knowledge-base-index.md)
