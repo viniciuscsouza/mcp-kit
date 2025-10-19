@@ -45,6 +45,11 @@ program
         fs.renameSync(gitignorePath, path.join(projectPath, '.gitignore'));
       }
 
+      // Garante que o diretório 'logs' exista
+      const logsPath = path.join(projectPath, 'logs');
+      if (!fs.existsSync(logsPath)) {
+        fs.mkdirSync(logsPath, { recursive: true });
+      }
       console.log('\nSucesso! Projeto criado em', projectPath);
       console.log('\nDentro do diretório, você pode executar vários comandos:\n');
       console.log(`  npm install`);
