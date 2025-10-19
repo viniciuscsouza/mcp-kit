@@ -9,10 +9,14 @@ import {
   PROMPTS_KEY,
   PromptOptions
 } from './decorators';
+import { AnyZodObject, IResourceProvider, ResourceDefinition, ResourceContent, ResourceParams } from './types';
 
 // Tipos auxiliares
-type ToolMetadata = ToolOptions & { methodName: string | symbol };
-type PromptMetadata = PromptOptions & { methodName: string | symbol };
+type ToolMetadata = ToolOptions & { methodName: string | symbol; inputSchema?: AnyZodObject; outputSchema?: AnyZodObject };
+type PromptMetadata = PromptOptions & { methodName: string | symbol; inputSchema?: AnyZodObject };
+
+// Tipo para classes de provedores
+type ProviderClass = { new (): any; name: string; };
 
 export interface ApplicationOptions {
   name: string;
@@ -20,7 +24,7 @@ export interface ApplicationOptions {
 }
 
 export class Application {
-  private providers: any[] = [];
+  private providers: ProviderClass[] = [];
   private readonly mcpServer: McpServer;
 
   constructor(options: ApplicationOptions) {
@@ -30,7 +34,7 @@ export class Application {
     });
   }
 
-  public addProvider(provider: any): void {
+  public addProvider(provider: ProviderClass): void {
     console.error(`[MCP-Kit] Registrando provider: ${provider.name}`);
     this.providers.push(provider);
   }
@@ -46,7 +50,7 @@ export class Application {
       }
 
       console.error(`[MCP-Kit] - Processando provider: ${providerOptions.name} (da classe ${providerClass.name})`);
-      const instance = new providerClass();
+      const instance: IResourceProvider & { [key: string | symbol]: any } = new providerClass();
 
       // Registra as Tools
       const tools: ToolMetadata[] = Reflect.getMetadata(TOOLS_KEY, providerClass) || [];
@@ -58,6 +62,7 @@ export class Application {
           {
             description: tool.description,
             inputSchema: tool.inputSchema?.shape,
+            outputSchema: tool.outputSchema?.shape, // Adicionado outputSchema
           },
           instance[tool.methodName].bind(instance)
         );
@@ -81,15 +86,15 @@ export class Application {
       // Registra os Resources
       if (typeof instance.listResources === 'function' && typeof instance.readResource === 'function') {
         console.error(`  - Registrando Resources para ${providerOptions.name}...`);
-        const resourceDefs = await instance.listResources();
+        const resourceDefs: ResourceDefinition[] = await instance.listResources();
         if (resourceDefs && Array.isArray(resourceDefs)) {
           for (const resourceDef of resourceDefs) {
-            const resourceName = `${providerOptions.name}.${resourceDef.name}`;
+            const resourceId = `${providerOptions.name}.${resourceDef.name}`; // Usar name para ID interno
             this.mcpServer.registerResource(
-              resourceName,
+              resourceId, // ID para o recurso
               resourceDef.uri,
               { description: resourceDef.description, mimeType: resourceDef.mimeType },
-              (uri, params) => {
+              (uri: URL, params: ResourceParams) => { // Tipagem correta para uri e params
                 console.error(`[MCP-Kit] readResource callback called with uri: ${uri.toString()}, params: ${JSON.stringify(params)}`);
                 return instance.readResource(uri.toString(), params);
               }

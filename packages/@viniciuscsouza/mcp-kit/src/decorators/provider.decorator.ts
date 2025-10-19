@@ -1,26 +1,12 @@
 import 'reflect-metadata';
+import { ResourceDefinition } from '../types'; // Importar de types.ts
 
 // Chave única para armazenar os metadados do provider
 export const PROVIDER_KEY = '@viniciuscsouza/mcp-kit:provider';
 
 export interface ProviderOptions {
   name: string;
-  description?: string;
-}
-
-export interface ResourceDefinition {
-  uri: string;
-  name: string;
-  description?: string;
-  mimeType: string;
-}
-
-export interface ResourceContent {
-  contents: {
-    uri: string;
-    text: string;
-    mimeType?: string;
-  }[];
+  description: string; // Tornar obrigatório
 }
 
 /**

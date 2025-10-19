@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { z } from 'zod'; // Importar Zod para os schemas
 
 // Objeto para manter referências estáveis para nossos mocks
 const mocks = {
@@ -32,9 +33,17 @@ describe('Application', () => {
     const { Application } = await import('../src/application');
     const { Provider, Tool } = await import('../src/decorators');
     
-    @Provider({ name: 'test-provider' })
+    const mockInputSchema = z.object({ name: z.string() });
+    const mockOutputSchema = z.object({ message: z.string() });
+
+    @Provider({ name: 'test-provider', description: 'A test provider' })
     class MockProvider {
-      @Tool({ id: 'my-tool', description: 'A test tool' })
+      @Tool({
+        id: 'my-tool',
+        description: 'A test tool',
+        inputSchema: mockInputSchema,
+        outputSchema: mockOutputSchema
+      })
       toolMethod() { return { content: [] }; }
     }
 
@@ -47,7 +56,11 @@ describe('Application', () => {
     // Assert
     expect(mocks.registerTool).toHaveBeenCalledWith(
       'test-provider.my-tool',
-      { description: 'A test tool', inputSchema: undefined },
+      {
+        description: 'A test tool',
+        inputSchema: mockInputSchema.shape,
+        outputSchema: mockOutputSchema.shape,
+      },
       expect.any(Function)
     );
   });
@@ -57,10 +70,16 @@ describe('Application', () => {
     const { Application } = await import('../src/application');
     const { Provider, Prompt } = await import('../src/decorators');
     
-    @Provider({ name: 'test-provider' })
+    const mockInputSchema = z.object({ topic: z.string() });
+
+    @Provider({ name: 'test-provider', description: 'A test provider' })
     class MockProvider {
-      @Prompt({ id: 'my-prompt', description: 'A test prompt' })
-      promptMethod() { return 'a prompt'; }
+      @Prompt({
+        id: 'my-prompt',
+        description: 'A test prompt',
+        inputSchema: mockInputSchema
+      })
+      promptMethod() { return { messages: [] }; }
     }
 
     const app = new Application({ name: 'test-app', version: '1.0.0' });
@@ -72,7 +91,7 @@ describe('Application', () => {
     // Assert
     expect(mocks.registerPrompt).toHaveBeenCalledWith(
       'test-provider.my-prompt',
-      { description: 'A test prompt', argsSchema: undefined },
+      { description: 'A test prompt', argsSchema: mockInputSchema.shape },
       expect.any(Function)
     );
   });
@@ -82,13 +101,18 @@ describe('Application', () => {
     const { Application } = await import('../src/application');
     const { Provider } = await import('../src/decorators');
 
-    @Provider({ name: 'test-provider' })
+    @Provider({ name: 'test-provider', description: 'A test provider' })
     class MockProvider {
-      async listResources() { 
-        return [{ uri: 'test://resource/1', name: 'resource1', description: 'My Test Resource' }]; 
+      async listResources() {
+        return [{
+          uri: 'test://resource/1',
+          name: 'resource1',
+          description: 'My Test Resource',
+          mimeType: 'text/plain'
+        }];
       }
-      async readResource(uri: string) { 
-        return { contents: [{ uri, text: 'content of ' + uri }] }; 
+      async readResource(uri: string, params: any) {
+        return { contents: [{ uri, text: 'content of ' + uri }] };
       }
     }
 
@@ -102,7 +126,7 @@ describe('Application', () => {
     expect(mocks.registerResource).toHaveBeenCalledWith(
       'test-provider.resource1',
       'test://resource/1',
-      { description: 'My Test Resource', mimeType: undefined },
+      { description: 'My Test Resource', mimeType: 'text/plain' },
       expect.any(Function)
     );
   });
@@ -112,10 +136,10 @@ describe('Application', () => {
     const { Application } = await import('../src/application');
     const { Provider } = await import('../src/decorators');
 
-    @Provider({ name: 'empty-provider' })
+    @Provider({ name: 'empty-provider', description: 'An empty provider' })
     class EmptyProvider {}
 
-    const app = new Application({ name: 'test-app', version: '1.0.0' });
+    const app = new Application({ name: 'test-app', version: '10.0.0' });
     app.addProvider(EmptyProvider);
 
     // Act

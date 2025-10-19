@@ -1,13 +1,14 @@
 import { z } from 'zod';
 import 'reflect-metadata';
+import { AnyZodObject } from '../types'; // Importar AnyZodObject
 
 // Chave única para armazenar a lista de prompts de um provider
 export const PROMPTS_KEY = '@viniciuscsouza/mcp-kit:prompts';
 
 export interface PromptOptions {
   id: string;
-  description?: string;
-  inputSchema?: z.ZodObject<any>;
+  description: string; // Tornar obrigatório
+  inputSchema?: AnyZodObject; // Refinar tipagem
 }
 
 /**

@@ -1,15 +1,15 @@
 import 'reflect-metadata';
-
-// Chave única para armazenar a lista de tools de um provider
-import { z, ZodRawShape } from 'zod';
+import { z } from 'zod';
+import { AnyZodObject } from '../types'; // Importar AnyZodObject
 
 // Chave única para armazenar a lista de tools de um provider
 export const TOOLS_KEY = '@viniciuscsouza/mcp-kit:tools';
 
 export interface ToolOptions {
   id: string;
-  description?: string;
-  inputSchema?: z.ZodObject<any>;
+  description: string; // Tornar obrigatório
+  inputSchema?: AnyZodObject; // Refinar tipagem
+  outputSchema?: AnyZodObject; // Adicionado
 }
 
 /**
