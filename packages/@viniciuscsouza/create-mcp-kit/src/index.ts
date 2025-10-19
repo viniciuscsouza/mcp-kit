@@ -7,6 +7,55 @@ import { fileURLToPath } from 'url';
 
 const program = new Command();
 
+const knowledgeBaseFiles = [
+  'mcp-knowledge-base-index.md',
+  'modelcontextprotocol/docs/docs/learn/architecture.mdx',
+  'modelcontextprotocol/docs/specification/draft/basic/lifecycle.mdx',
+  'modelcontextprotocol/docs/specification/draft/basic/transports.mdx',
+  'modelcontextprotocol/docs/docs/learn/server-concepts.mdx',
+  'modelcontextprotocol/docs/specification/draft/server/tools.mdx',
+  'modelcontextprotocol/docs/specification/draft/server/resources.mdx',
+  'modelcontextprotocol/docs/specification/draft/server/prompts.mdx',
+  'modelcontextprotocol/docs/docs/learn/client-concepts.mdx',
+  'modelcontextprotocol/docs/specification/draft/client/sampling.mdx',
+  'modelcontextprotocol/docs/specification/draft/client/elicitation.mdx',
+  'modelcontextprotocol/docs/specification/draft/client/roots.mdx',
+  'modelcontextprotocol/docs/specification/draft/basic/authorization.mdx',
+  'modelcontextprotocol/docs/specification/draft/basic/security_best_practices.mdx',
+  'typescript-sdk/README.md',
+  'modelcontextprotocol/docs/docs/develop/build-server.mdx',
+  'modelcontextprotocol/docs/legacy/tools/debugging.mdx',
+  'modelcontextprotocol/docs/docs/tools/inspector.mdx',
+  'npm-publishing-guide.md'
+];
+
+async function copyKnowledgeBase(projectPath: string) {
+  const knowledgeSourcePath = path.resolve(__dirname, '..', '..', '..', 'knowledge'); // Adjust path to monorepo knowledge dir
+  const knowledgeDestPath = path.join(projectPath, 'knowledge');
+
+  if (!fs.existsSync(knowledgeDestPath)) {
+    fs.mkdirSync(knowledgeDestPath, { recursive: true });
+  }
+
+  for (const file of knowledgeBaseFiles) {
+    const sourceFile = path.join(knowledgeSourcePath, file);
+    const destFile = path.join(knowledgeDestPath, file);
+    
+    // Ensure parent directory exists for the destination file
+    const destDir = path.dirname(destFile);
+    if (!fs.existsSync(destDir)) {
+      fs.mkdirSync(destDir, { recursive: true });
+    }
+
+    if (fs.existsSync(sourceFile)) {
+      await fs.copy(sourceFile, destFile);
+    } else {
+      console.warn(`Arquivo de base de conhecimento não encontrado: ${sourceFile}`);
+    }
+  }
+  console.log('Base de conhecimento copiada para o projeto.');
+}
+
 program
   .name('@viniciuscsouza/create-mcp-kit')
   .description('Cria um novo servidor para o MCP-Kit')
@@ -50,7 +99,9 @@ program
       if (!fs.existsSync(logsPath)) {
         fs.mkdirSync(logsPath, { recursive: true });
       }
-      console.log('\nSucesso! Projeto criado em', projectPath);
+
+      // Copia a base de conhecimento para o novo projeto
+      await copyKnowledgeBase(projectPath);      console.log('\nSucesso! Projeto criado em', projectPath);
       console.log('\nDentro do diretório, você pode executar vários comandos:\n');
       console.log(`  npm install`);
       console.log(`    Instala as dependências.\n`);
