@@ -56,3 +56,10 @@ Este documento serve como um índice de referência rápida para a documentaçã
 - **Referências:**
     - [Guia de Depuração](modelcontextprotocol/docs/legacy/tools/debugging.mdx)
     - [Guia do MCP Inspector](modelcontextprotocol/docs/docs/tools/inspector.mdx)
+
+## Parte 3: Ferramentas e Desenvolvimento
+
+### **Publicação de Pacotes NPM**
+
+- **Tópicos:** Processo de publicação, incremento de versão, execução de testes e correção de `package.json`.
+- **Referência:** [Guia de Publicação de Pacotes NPM](npm-publishing-guide.md)
