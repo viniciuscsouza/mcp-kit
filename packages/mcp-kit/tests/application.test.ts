@@ -6,7 +6,7 @@ const mocks = {
   registerPrompt: vi.fn(),
   registerResource: vi.fn(),
   connect: vi.fn(),
-  MockMcpServer: {} as any, 
+  MockMcpServer: {} as any,
 };
 
 // Mock do módulo do SDK
@@ -24,30 +24,71 @@ vi.mock('@modelcontextprotocol/sdk/server/mcp.js', () => {
 describe('Application', () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    vi.resetModules();
   });
 
-  it('should discover and register all capabilities from a provider', async () => {
-    // Arrange: Importar módulos dinamicamente após o mock
+  it('should register tools from a provider', async () => {
+    // Arrange
     const { Application } = await import('../src/application');
-    const { Provider, Tool, Prompt } = await import('../src/decorators');
-    const { McpServer } = await import('@modelcontextprotocol/sdk/server/mcp.js');
-
-    // Provider falso com todas as capabilities
+    const { Provider, Tool } = await import('../src/decorators');
+    
     @Provider({ name: 'test-provider' })
     class MockProvider {
-      @Tool({ id: 'my-tool' })
+      @Tool({ id: 'my-tool', description: 'A test tool' })
       toolMethod() { return { content: [] }; }
+    }
 
-      @Prompt({ id: 'my-prompt' })
+    const app = new Application({ name: 'test-app', version: '1.0.0' });
+    app.addProvider(MockProvider);
+
+    // Act
+    await app.listen();
+
+    // Assert
+    expect(mocks.registerTool).toHaveBeenCalledWith(
+      'test-provider.my-tool',
+      { description: 'A test tool', inputSchema: undefined },
+      expect.any(Function)
+    );
+  });
+
+  it('should register prompts from a provider', async () => {
+    // Arrange
+    const { Application } = await import('../src/application');
+    const { Provider, Prompt } = await import('../src/decorators');
+    
+    @Provider({ name: 'test-provider' })
+    class MockProvider {
+      @Prompt({ id: 'my-prompt', description: 'A test prompt' })
       promptMethod() { return 'a prompt'; }
+    }
 
-      // Mock para listResources que retorna a definição de um recurso
+    const app = new Application({ name: 'test-app', version: '1.0.0' });
+    app.addProvider(MockProvider);
+
+    // Act
+    await app.listen();
+
+    // Assert
+    expect(mocks.registerPrompt).toHaveBeenCalledWith(
+      'test-provider.my-prompt',
+      { description: 'A test prompt', argsSchema: undefined },
+      expect.any(Function)
+    );
+  });
+
+  it('should register resources from a provider', async () => {
+    // Arrange
+    const { Application } = await import('../src/application');
+    const { Provider } = await import('../src/decorators');
+
+    @Provider({ name: 'test-provider' })
+    class MockProvider {
       async listResources() { 
         return [{ uri: 'test://resource/1', name: 'resource1', description: 'My Test Resource' }]; 
       }
-      // Mock para readResource que retorna o conteúdo
       async readResource(uri: string) { 
-        return { uri, text: 'content of ' + uri }; 
+        return { contents: [{ uri, text: 'content of ' + uri }] }; 
       }
     }
 
@@ -58,20 +99,49 @@ describe('Application', () => {
     await app.listen();
 
     // Assert
-    expect(McpServer).toHaveBeenCalledTimes(1);
-
-    // Assert: Verifica se registerResource foi chamado com os argumentos corretos
     expect(mocks.registerResource).toHaveBeenCalledWith(
-      'test-provider.resource1', // Nome namespaced
-      'test://resource/1',     // URI do recurso
-      {
-        description: 'My Test Resource',
-        mimeType: undefined
-      },
-      expect.any(Function) // O callback (readResource)
+      'test-provider.resource1',
+      'test://resource/1',
+      { description: 'My Test Resource', mimeType: undefined },
+      expect.any(Function)
     );
+  });
 
-    // Limpa os mocks
-    vi.resetModules();
+  it('should handle providers with no capabilities', async () => {
+    // Arrange
+    const { Application } = await import('../src/application');
+    const { Provider } = await import('../src/decorators');
+
+    @Provider({ name: 'empty-provider' })
+    class EmptyProvider {}
+
+    const app = new Application({ name: 'test-app', version: '1.0.0' });
+    app.addProvider(EmptyProvider);
+
+    // Act
+    await app.listen();
+
+    // Assert
+    expect(mocks.registerTool).not.toHaveBeenCalled();
+    expect(mocks.registerPrompt).not.toHaveBeenCalled();
+    expect(mocks.registerResource).not.toHaveBeenCalled();
+  });
+
+  it('should ignore classes that are not providers', async () => {
+    // Arrange
+    const { Application } = await import('../src/application');
+
+    class NotAProvider {}
+
+    const app = new Application({ name: 'test-app', version: '1.0.0' });
+    app.addProvider(NotAProvider);
+
+    // Act
+    await app.listen();
+
+    // Assert
+    expect(mocks.registerTool).not.toHaveBeenCalled();
+    expect(mocks.registerPrompt).not.toHaveBeenCalled();
+    expect(mocks.registerResource).not.toHaveBeenCalled();
   });
 });
