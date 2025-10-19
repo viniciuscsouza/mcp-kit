@@ -14,6 +14,53 @@ O projeto atual é a concepção e planejamento de um novo framework chamado **M
 
 O plano detalhado e a especificação completa deste framework estão documentados no arquivo `FRAMEWORK_SPEC.md`.
 
+## Stack Tecnológica
+
+- **Linguagem:** TypeScript
+- **Ambiente:** Node.js
+- **Gerenciador de Pacotes:** npm com Workspaces (Monorepo)
+- **Framework de Testes:** Vitest
+- **Executor de TS:** tsx
+- **Dependências Principais:** `@modelcontextprotocol/sdk`, `reflect-metadata`
+
+## Estrutura de Arquivos e Pastas
+
+```
+.
+├── AGENTS.md
+├── FRAMEWORK_SPEC.md
+├── knowledge/
+│   ├── mcp-kit-design-memory.md
+│   └── project-retrospective-memory.md
+│   └── ... (outros arquivos de conhecimento)
+├── package.json
+├── package-lock.json
+└── packages/
+    ├── example-server/
+    │   ├── package.json
+    │   ├── tsconfig.json
+    │   ├── src/
+    │   │   ├── main.ts
+    │   │   └── providers/
+    │   │       ├── hello.provider.ts
+    │   │       └── index.ts
+    │   └── tests/
+    │       └── hello.provider.test.ts
+    └── mcp-kit/
+        ├── package.json
+        ├── tsconfig.json
+        ├── src/
+        │   ├── application.ts
+        │   ├── index.ts
+        │   └── decorators/
+        │       ├── index.ts
+        │       ├── prompt.decorator.ts
+        │       ├── provider.decorator.ts
+        │       └── tool.decorator.ts
+        └── tests/
+            └── application.test.ts
+```
+
 ## Instruções
 
 **Sempre** que aprender algo novo crie um arquivo `*-memory.md` na pasta `knowledge`.
@@ -23,6 +70,8 @@ O plano detalhado e a especificação completa deste framework estão documentad
 ## Referências
 **Sempre** utilize os arquivos de conhecimento disponíveis no projeto:
 
+- [knowledge/project-retrospective-memory.md](knowledge/project-retrospective-memory.md): Retrospectiva completa do processo de criação e planejamento do MCP-Kit.
+- [knowledge/mcp-kit-design-memory.md](knowledge/mcp-kit-design-memory.md): Resumo das decisões de design do framework MCP-Kit.
 - [knowledge/llms-full.txt](knowledge/llms-full.txt): Uma visão geral do Model Context Protocol (MCP), o protocolo aberto que conecta aplicações de IA aos sistemas onde o contexto reside.
 - [knowledge/modelcontextprotocol/ANTITRUST.md](knowledge/modelcontextprotocol/ANTITRUST.md): Política Antitruste do Projeto MCP para participantes e contribuidores.
 - [knowledge/modelcontextprotocol/CODE_OF_CONDUCT.md](knowledge/modelcontextprotocol/CODE_OF_CONDUCT.md): O Código de Conduta do Pacto de Contribuintes para a comunidade MCP.
