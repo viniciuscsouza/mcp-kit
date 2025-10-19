@@ -1,10 +1,10 @@
 # Visão Geral
 
-## Projeto Atual: MCP-Kit
+## Projeto Atual: Ecossistema MCP-Kit
 
-O projeto atual é a concepção e planejamento de um novo framework chamado **MCP-Kit**, construído sobre o SDK de TypeScript do MCP.
+O projeto atual é o desenvolvimento e manutenção do **MCP-Kit**, um ecossistema de ferramentas para construir servidores MCP (Model Context Protocol) em TypeScript.
 
-**Objetivo:** Simplificar e acelerar o desenvolvimento de servidores MCP em TypeScript, utilizando uma abordagem moderna e declarativa.
+**Objetivo:** Simplificar e acelerar o desenvolvimento de servidores MCP, oferecendo um framework moderno, ferramentas de scaffolding e exemplos práticos.
 
 ## Stack Tecnológica
 
@@ -22,43 +22,22 @@ O projeto atual é a concepção e planejamento de um novo framework chamado **M
 ├── .gitignore
 ├── AGENTS.md
 ├── CHANGELOG.md
-├── FRAMEWORK_SPEC.md
+├── CONTRIBUTING.md
 ├── GEMINI.md
 ├── knowledge/
-│   ├── llms-full.txt
-│   ├── mcp-kit-design-memory.md
-│   ├── mcp-knowledge-base-index.md
-│   ├── mcp-protocol-reference.md
-│   ├── modelcontextprotocol/
-│   │   ├── ANTITRUST.md
-│   │   ├── CODE_OF_CONDUCT.md
-│   │   ├── CONTRIBUTING.md
-│   │   ├── MAINTAINERS.md
-│   │   ├── README.md
-│   │   ├── SECURITY.md
-│   │   ├── blog/
-│   │   └── docs/
-│   ├── project-retrospective-memory.md
-│   └── typescript-sdk/
-│       ├── CLAUDE.md
-│       ├── CODE_OF_CONDUCT.md
-│       ├── CONTRIBUTING.md
-│       ├── README.md
-│       ├── SECURITY.md
-│       └── src/
+│   ├── ...
 ├── package.json
 ├── README.md
 └── packages/
+    ├── create-mcp-kit/
+    │   ├── package.json
+    │   └── src/
     ├── example-server/
     │   ├── package.json
-    │   ├── src/
-    │   ├── tests/
-    │   └── tsconfig.json
+    │   └── src/
     └── mcp-kit/
         ├── package.json
-        ├── src/
-        ├── tests/
-        └── tsconfig.json
+        └── src/
 ```
 
 ## Instruções
