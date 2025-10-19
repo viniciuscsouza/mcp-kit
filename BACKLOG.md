@@ -14,24 +14,6 @@ Este documento lista as sugestões de melhorias e tarefas futuras identificadas 
 
 ## ✨ Prioridade Média
 
-### 2. Melhorias de Tipagem e Interfaces no `@viniciuscsouza/mcp-kit`
-- **Descrição:** Refinar a tipagem e adicionar interfaces para melhorar a segurança de tipo e a clareza do código.
-- **Tipo:** Código, Refatoração
-- **Pacote:** `@viniciuscsouza/mcp-kit`
-- **Detalhes:**
-    - Refinar tipagem de `providerClass` e `instance` na classe `Application` (atualmente `any`).
-    - Refinar tipagem de `inputSchema` e `argsSchema` nos decoradores para serem mais específicos (e.g., `z.AnyZodObject`).
-    - Criar uma interface (e.g., `IResourceProvider`) para provedores que oferecem recursos, garantindo que `listResources` e `readResource` existam e tenham as assinaturas corretas.
-    - Garantir que a assinatura de `readResource` nos provedores seja consistente com os parâmetros passados pela `Application` (atualmente `uri.toString(), params`).
-
-### 3. Refinamento dos Decoradores no `@viniciuscsouza/mcp-kit`
-- **Descrição:** Ajustar os decoradores para maior consistência com a especificação MCP e flexibilidade.
-- **Tipo:** Código, Refatoração
-- **Pacote:** `@viniciuscsouza/mcp-kit`
-- **Detalhes:**
-    - Tornar a propriedade `description` obrigatória para `ToolOptions` e `PromptOptions` para alinhar com a especificação MCP.
-    - Adicionar `outputSchema?: z.AnyZodObject;` em `ToolOptions` para permitir a definição do esquema de saída das ferramentas.
-
 ### 4. Melhorias na Documentação do Monorepo
 - **Descrição:** Atualizar e gerenciar a documentação geral do monorepo para maior precisão e consistência.
 - **Tipo:** Documentação
