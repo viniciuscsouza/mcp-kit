@@ -20,4 +20,3 @@ lerna-debug.log*
 .npm
 
 /packages/example-server/logs
-/packages/create-mcp-kit

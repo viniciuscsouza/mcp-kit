@@ -1,6 +1,6 @@
 # MCP-Kit Monorepo
 
-Este repositório contém o código-fonte do **MCP-Kit**, um ecossistema de ferramentas para construir servidores MCP (Model Context Protocol) em TypeScript.
+Este repositório contém o código-fonte do **MCP-Kit**, um ecossistema de ferramentas para construir servidores MCP (Model Context Protocol) em TypeScript de forma moderna e eficiente.
 
 ## O Ecossistema
 
@@ -9,6 +9,17 @@ O MCP-Kit é composto por três pacotes principais que vivem neste monorepo:
 - **`packages/mcp-kit`**: O coração do projeto. É um framework baseado em decoradores (`@Provider`, `@Tool`) que simplifica a criação de toda a lógica de um servidor MCP.
 - **`packages/create-mcp-kit`**: Uma ferramenta de linha de comando (CLI) para gerar rapidamente um novo projeto de servidor, já configurado com o MCP-Kit.
 - **`packages/example-server`**: Um servidor de exemplo que demonstra as funcionalidades do framework e serve como um guia prático.
+
+## Recursos Principais
+
+- **Arquitetura com Decoradores**: Use `@Provider`, `@Tool`, e `@Prompt` para organizar seu código de forma declarativa e intuitiva.
+- **Validação de Schema Integrada**: Defina os schemas de entrada para suas ferramentas e prompts usando **Zod**.
+- **Registro Automático**: O framework registra automaticamente suas ferramentas, prompts e recursos no servidor MCP.
+- **Ecossistema Completo**: Ferramentas de scaffolding (`create-mcp-kit`) para iniciar projetos rapidamente.
+
+## Status do Projeto
+
+**Em desenvolvimento ativo.** O MCP-Kit é um projeto novo e está em constante evolução. A API pode sofrer alterações. Feedback e contribuições são muito bem-vindos!
 
 ## Como Começar
 
@@ -55,3 +66,7 @@ Se você deseja contribuir para o desenvolvimento do `mcp-kit`, siga estes passo
    ```bash
    npm start --workspace=example-server
    ```
+
+## Licença
+
+Este projeto é distribuído sob a licença MIT. Veja o arquivo `LICENSE` para mais detalhes.
