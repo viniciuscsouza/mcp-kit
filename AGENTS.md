@@ -6,8 +6,6 @@ O projeto atual é a concepção e planejamento de um novo framework chamado **M
 
 **Objetivo:** Simplificar e acelerar o desenvolvimento de servidores MCP em TypeScript, utilizando uma abordagem moderna e declarativa.
 
-O plano detalhado e a especificação completa deste framework estão documentados no arquivo `FRAMEWORK_SPEC.md`.
-
 ## Stack Tecnológica
 
 - **Linguagem:** TypeScript
