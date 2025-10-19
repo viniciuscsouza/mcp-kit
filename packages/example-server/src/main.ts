@@ -9,7 +9,10 @@ import { HelloProvider } from './providers/hello.provider';
  */
 function bootstrap() {
   // 1. Cria a única instância da aplicação
-  const app = new Application();
+  const app = new Application({
+    name: 'example-server',
+    version: '1.0.0'
+  });
 
   // 2. Registra os providers da aplicação
   // O framework irá inspecionar HelloProvider em busca de @Tool, @Prompt, etc.
