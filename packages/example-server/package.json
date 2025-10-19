@@ -2,23 +2,12 @@
   "name": "example-server",
   "version": "1.0.0",
   "private": true,
-  "description": "Example server for the MCP-Kit framework.",
-  "main": "dist/main.js",
   "scripts": {
     "start": "tsx src/main.ts",
     "test": "vitest",
     "build": "tsc"
   },
   "dependencies": {
-    "mcp-kit": "0.0.1",
-    "reflect-metadata": "^0.2.2"
-  },
-  "devDependencies": {
-    "@types/node": "^24.8.1",
-    "tsx": "^4.20.6",
-    "typescript": "^5.9.3",
-    "vitest": "^3.2.4"
-  },
-  "author": "",
-  "license": "ISC"
+    "mcp-kit": "0.0.1"
+  }
 }

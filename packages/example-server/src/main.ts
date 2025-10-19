@@ -1,5 +1,5 @@
 // Importa a classe principal do framework (que estamos construindo)
-import { Application } from './mcp-kit'; // Usando path relativo por enquanto
+import { Application } from 'mcp-kit';
 
 // Importa os providers definidos no projeto
 import { HelloProvider } from './providers/hello.provider';

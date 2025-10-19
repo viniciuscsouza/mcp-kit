@@ -3,6 +3,10 @@
 
 # Build output
 /dist
+packages/**/dist
+
+# Lockfiles
+package-lock.json
 
 # Logs
 npm-debug.log*

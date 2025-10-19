@@ -1,6 +1,7 @@
 // Importa os decoradores do framework (que estamos construindo)
 // O path de importação será 'mcp-kit' quando o publicarmos no npm.
-import { Provider, Tool } from '../mcp-kit';
+import { Provider, Tool } from 'mcp-kit';
+import { z } from 'zod';
 
 @Provider({
   name: 'hello',
@@ -9,9 +10,11 @@ import { Provider, Tool } from '../mcp-kit';
 export class HelloProvider {
 
   @Tool({
-    id: 'say', // O ID final, prefixado pelo framework, será 'hello.say'
-    description: 'Gera uma saudação para um nome fornecido.'
-    // Em um cenário real, o framework usaria um schema para validar os argumentos.
+    id: 'say', 
+    description: 'Gera uma saudação para um nome fornecido.',
+    inputSchema: {
+      name: z.string().describe('O nome para saudar.'),
+    }
   })
   async sayHello({ name }: { name: string }) {
     // A lógica da nossa ferramenta

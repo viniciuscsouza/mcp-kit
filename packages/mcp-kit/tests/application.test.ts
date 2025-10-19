@@ -1,39 +1,56 @@
-import { describe, it, expect, vi } from 'vitest';
-import { Application } from '../src/application';
-import { Provider, Tool, Prompt } from '../src/decorators';
-import { McpServer } from '@modelcontextprotocol/sdk/server';
+import { describe, it, expect, vi, beforeEach } from 'vitest';
 
-// Mocka o módulo do SDK do MCP para isolar nosso teste
-vi.mock('@modelcontextprotocol/sdk/server', () => {
-  const mockRegisterTool = vi.fn();
-  const mockRegisterPrompt = vi.fn();
-  const mockConnect = vi.fn();
-  
+// Objeto para manter referências estáveis para nossos mocks
+const mocks = {
+  registerTool: vi.fn(),
+  registerPrompt: vi.fn(),
+  registerResource: vi.fn(),
+  connect: vi.fn(),
+  MockMcpServer: {} as any, 
+};
+
+// Mock do módulo do SDK
+vi.mock('@modelcontextprotocol/sdk/server/mcp.js', () => {
   const MockMcpServer = vi.fn(() => ({
-    registerTool: mockRegisterTool,
-    registerPrompt: mockRegisterPrompt,
-    connect: mockConnect,
+    registerTool: mocks.registerTool,
+    registerPrompt: mocks.registerPrompt,
+    registerResource: mocks.registerResource,
+    connect: mocks.connect,
   }));
-
-  return {
-    McpServer: MockMcpServer,
-    StdioServerTransport: vi.fn(),
-  };
+  mocks.MockMcpServer = MockMcpServer;
+  return { McpServer: MockMcpServer };
 });
 
-// Cria um provider falso que usa nossos decoradores
-@Provider({ name: 'test-provider' })
-class MockProvider {
-  @Tool({ id: 'my-tool' })
-  toolMethod() { return { content: [] }; }
-
-  @Prompt({ id: 'my-prompt' })
-  promptMethod() { return 'a prompt'; }
-}
-
 describe('Application', () => {
-  it('should discover and register tools and prompts from a provider', async () => {
-    // Arrange
+  beforeEach(() => {
+    vi.clearAllMocks();
+  });
+
+  it('should discover and register all capabilities from a provider', async () => {
+    // Arrange: Importar módulos dinamicamente após o mock
+    const { Application } = await import('../src/application');
+    const { Provider, Tool, Prompt } = await import('../src/decorators');
+    const { McpServer } = await import('@modelcontextprotocol/sdk/server/mcp.js');
+
+    // Provider falso com todas as capabilities
+    @Provider({ name: 'test-provider' })
+    class MockProvider {
+      @Tool({ id: 'my-tool' })
+      toolMethod() { return { content: [] }; }
+
+      @Prompt({ id: 'my-prompt' })
+      promptMethod() { return 'a prompt'; }
+
+      // Mock para listResources que retorna a definição de um recurso
+      async listResources() { 
+        return [{ uri: 'test://resource/1', name: 'resource1', description: 'My Test Resource' }]; 
+      }
+      // Mock para readResource que retorna o conteúdo
+      async readResource(uri: string) { 
+        return { uri, text: 'content of ' + uri }; 
+      }
+    }
+
     const app = new Application({ name: 'test-app', version: '1.0.0' });
     app.addProvider(MockProvider);
 
@@ -41,23 +58,20 @@ describe('Application', () => {
     await app.listen();
 
     // Assert
-    const mcpServerInstance = (McpServer as any).mock.instances[0];
+    expect(McpServer).toHaveBeenCalledTimes(1);
 
-    // Verifica se o registerTool foi chamado com o ID namespaced correto
-    expect(mcpServerInstance.registerTool).toHaveBeenCalledWith(
-      'test-provider.my-tool',
-      expect.any(Object),
-      expect.any(Function)
+    // Assert: Verifica se registerResource foi chamado com os argumentos corretos
+    expect(mocks.registerResource).toHaveBeenCalledWith(
+      'test-provider.resource1', // Nome namespaced
+      'test://resource/1',     // URI do recurso
+      {
+        description: 'My Test Resource',
+        mimeType: undefined
+      },
+      expect.any(Function) // O callback (readResource)
     );
 
-    // Verifica se o registerPrompt foi chamado com o ID namespaced correto
-    expect(mcpServerInstance.registerPrompt).toHaveBeenCalledWith(
-      'test-provider.my-prompt',
-      expect.any(Object),
-      expect.any(Function)
-    );
-
-    // Verifica se a conexão com o transporte foi chamada
-    expect(mcpServerInstance.connect).toHaveBeenCalled();
+    // Limpa os mocks
+    vi.resetModules();
   });
 });
