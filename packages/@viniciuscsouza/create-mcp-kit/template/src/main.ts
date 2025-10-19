@@ -3,6 +3,7 @@
 import { Application } from '@viniciuscsouza/mcp-kit';
 import { HelloProvider } from './providers';
 import { LoggingStdioServerTransport } from './LoggingStdioServerTransport';
+import packageJson from '../package.json';
 
 /**
  * Ponto de entrada principal do servidor.
@@ -10,8 +11,8 @@ import { LoggingStdioServerTransport } from './LoggingStdioServerTransport';
 function bootstrap() {
   // 1. Cria a instância da aplicação
   const app = new Application({
-    name: 'my-mcp-server',
-    version: '0.1.0'
+    name: packageJson.name,
+    version: packageJson.version
   });
 
   // 2. Registra os providers da aplicação

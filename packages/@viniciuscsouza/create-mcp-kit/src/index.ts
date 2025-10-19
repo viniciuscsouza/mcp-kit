@@ -49,8 +49,8 @@ program
       console.log('\nDentro do diretório, você pode executar vários comandos:\n');
       console.log(`  npm install`);
       console.log(`    Instala as dependências.\n`);
-      console.log(`  npm start`);
-      console.log(`    Inicia o servidor de desenvolvimento.\n`);
+      console.log(`  npm inspect`);
+      console.log(`    Inicia o MCP Inspector.\n`);
       console.log(`  npm test`);
       console.log(`    Executa os testes.\n`);
       console.log('Sugerimos que você comece digitando:\n');
