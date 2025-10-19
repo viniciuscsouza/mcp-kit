@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import { Application } from 'mcp-kit';
+import { Application } from '@viniciuscsouza/mcp-kit';
 import { HelloProvider } from './providers';
 import { LoggingStdioServerTransport } from './LoggingStdioServerTransport';
 

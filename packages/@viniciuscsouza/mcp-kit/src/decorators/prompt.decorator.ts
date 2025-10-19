@@ -2,7 +2,7 @@ import { z } from 'zod';
 import 'reflect-metadata';
 
 // Chave única para armazenar a lista de prompts de um provider
-export const PROMPTS_KEY = 'mcp-kit:prompts';
+export const PROMPTS_KEY = '@viniciuscsouza/mcp-kit:prompts';
 
 export interface PromptOptions {
   id: string;

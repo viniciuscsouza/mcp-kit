@@ -8,7 +8,7 @@ import { fileURLToPath } from 'url';
 const program = new Command();
 
 program
-  .name('create-mcp-kit')
+  .name('@viniciuscsouza/create-mcp-kit')
   .description('Cria um novo servidor para o MCP-Kit')
   .argument('<project-directory>', 'O diretório para criar o projeto')
   .action(async (projectDirectory: string) => {

@@ -1,5 +1,5 @@
 {
-  "name": "mcp-kit",
+  "name": "@viniciuscsouza/mcp-kit",
   "version": "0.0.1",
   "description": "A decorator-based framework for building Model Context Protocol (MCP) servers in TypeScript.",
   "main": "dist/index.js",
@@ -11,8 +11,5 @@
     "build": "tsc",
     "test": "vitest run"
   },
-  "devDependencies": {
-    "vitest": "^1.2.2",
-    "vi-mock": "^0.1.1"
-  }
+  "devDependencies": {}
 }

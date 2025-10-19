@@ -4,7 +4,7 @@ import 'reflect-metadata';
 import { z, ZodRawShape } from 'zod';
 
 // Chave única para armazenar a lista de tools de um provider
-export const TOOLS_KEY = 'mcp-kit:tools';
+export const TOOLS_KEY = '@viniciuscsouza/mcp-kit:tools';
 
 export interface ToolOptions {
   id: string;
