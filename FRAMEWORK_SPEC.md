@@ -1,4 +1,4 @@
-# Especificação do Framework MCP para TypeScript
+# MCP-Kit: Especificação do Framework
 
 Este documento descreve os requisitos e o design de um framework para facilitar a criação de servidores MCP (Model Context Protocol) usando TypeScript.
 
@@ -9,6 +9,7 @@ O objetivo deste framework é **abstrair a complexidade** do protocolo MCP e do 
 ## 2. Princípios de Design
 
 - **Convenção sobre Configuração:** O framework deve fornecer padrões inteligentes e uma estrutura de projeto clara, minimizando a necessidade de configuração manual.
+- **Convenções de Nomenclatura Mandatórias:** O framework utiliza convenções de nomenclatura de arquivos para identificar e carregar componentes automaticamente. Aderir a essas convenções (ex: `*.provider.ts`) é mandatório para o funcionamento correto.
 - **API Declarativa:** Utilizar recursos modernos do TypeScript, como decoradores, para definir capacidades de forma clara e com o mínimo de código.
 - **Extensibilidade:** Embora o foco inicial seja `stdio`, o design deve permitir a adição de outros transportes (ex: HTTP, WebSockets) no futuro sem grandes refatorações.
 
@@ -34,7 +35,7 @@ Uma classe decorada com `@Provider` pode conter métodos que definem `Tools`, `P
 ### Exemplo de Provider (`src/providers/filesystem.provider.ts`):
 
 ```typescript
-import { Provider, Prompt, Tool, ResourceDefinition, ResourceContent } from 'mcp-framework';
+import { Provider, Prompt, Tool, ResourceDefinition, ResourceContent } from 'mcp-kit';
 import * as fs from 'fs';
 
 @Provider({
@@ -95,8 +96,8 @@ app.listen();
 ## 6. Scaffolding (Geração de Projeto)
 
 - **Comando:** Um pacote `npx` será criado para gerar a estrutura inicial de um novo servidor.
-- **Uso:** `npx create-mcp-server <nome-do-projeto>`
-- **Estrutura Gerada:** O comando criará uma estrutura de diretórios e arquivos iniciais, organizada por **domínio de provider** e já configurada com **Vitest** para testes unitários.
+- **Uso:** `npx create-mcp-kit <nome-do-projeto>`
+- **Estrutura Gerada:** O comando criará uma estrutura de diretórios e arquivos que segue as **convenções de nomenclatura mandatórias** do framework (ex: `*.provider.ts`, `*.test.ts`) e já vem configurada com **Vitest** para testes unitários.
   ```
   <nome-do-projeto>/
   ├── src/

@@ -1,5 +1,18 @@
 # Visão Geral
 
+## Projeto Atual: MCP-Kit
+
+O projeto atual é a concepção e planejamento de um novo framework chamado **MCP-Kit**, construído sobre o SDK de TypeScript do MCP.
+
+**Objetivo:** Simplificar e acelerar o desenvolvimento de servidores MCP em TypeScript, utilizando uma abordagem moderna e declarativa.
+
+**Características Principais:**
+- **Arquitetura baseada em Decorators:** Usa `@Provider`, `@Tool` e `@Prompt` para definir capabilities.
+- **Convenção sobre Configuração:** Adota convenções mandatórias (ex: `*.provider.ts`) para minimizar a configuração manual.
+- **Scaffolding:** Inclui uma ferramenta de linha de comando (`npx create-mcp-kit`) para gerar a estrutura inicial do projeto.
+- **Testes Integrados:** A estrutura gerada já vem com [Vitest](https://vitest.dev/) configurado para testes unitários.
+
+O plano detalhado e a especificação completa deste framework estão documentados no arquivo `FRAMEWORK_SPEC.md`.
 
 ## Instruções
 
