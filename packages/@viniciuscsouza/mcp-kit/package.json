@@ -1,6 +1,6 @@
 {
   "name": "@viniciuscsouza/mcp-kit",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A decorator-based framework for building Model Context Protocol (MCP) servers in TypeScript.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

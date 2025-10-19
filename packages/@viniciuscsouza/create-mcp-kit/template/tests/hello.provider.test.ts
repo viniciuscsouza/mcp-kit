@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { HelloProvider } from '../src/providers/hello.provider';
+import { ResourceDefinition, ResourceContent } from '@viniciuscsouza/mcp-kit/dist/types'; // Importar de dist/types
 
 describe('HelloProvider', () => {
   it('should return a structured greeting from its sayHello tool', async () => {
@@ -30,16 +31,17 @@ describe('HelloProvider', () => {
 
   it('should list available resources', async () => {
     const provider = new HelloProvider();
-    const resources = await provider.listResources();
+    const resources: ResourceDefinition[] = await provider.listResources();
     expect(resources).toBeInstanceOf(Array);
     expect(resources.length).toBe(1);
     expect(resources[0].uri).toBe('mcp://hello/welcome');
     expect(resources[0].name).toBe('Welcome Message');
+    expect(resources[0].description).toBe('A simple welcome message.'); // description agora é obrigatório
   });
 
   it('should read a specific resource', async () => {
     const provider = new HelloProvider();
-    const resource = await provider.readResource('mcp://hello/welcome');
+    const resource: ResourceContent = await provider.readResource('mcp://hello/welcome');
     expect(resource.contents).toBeInstanceOf(Array);
     expect(resource.contents.length).toBe(1);
     expect(resource.contents[0].uri).toBe('mcp://hello/welcome');

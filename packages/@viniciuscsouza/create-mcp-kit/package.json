@@ -1,6 +1,6 @@
 {
   "name": "@viniciuscsouza/create-mcp-kit",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "bin": {
     "create-mcp-kit": "dist/index.js"
   },

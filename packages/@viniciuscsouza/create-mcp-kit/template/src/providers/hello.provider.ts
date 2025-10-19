@@ -1,4 +1,5 @@
-import { Provider, Tool, Prompt, ResourceDefinition, ResourceContent } from '@viniciuscsouza/mcp-kit';
+import { Provider, Tool, Prompt } from '@viniciuscsouza/mcp-kit';
+import { ResourceDefinition, ResourceContent } from '@viniciuscsouza/mcp-kit/dist/types'; // Importar de dist/types
 import { z } from 'zod';
 import packageJson from '../../package.json';
 
