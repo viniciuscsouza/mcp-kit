@@ -1,5 +1,6 @@
 import { Provider, Tool, Prompt, ResourceDefinition, ResourceContent } from '@viniciuscsouza/mcp-kit';
 import { z } from 'zod';
+import packageJson from '../../package.json';
 
 @Provider({
   name: 'hello',
@@ -49,6 +50,7 @@ export class HelloProvider {
 
 - **Usuário:** ${name}
 - **Data/Hora:** ${new Date().toISOString()}
+- **Servidor:** ${packageJson.name}
 `;
 
     return {
@@ -76,6 +78,7 @@ export class HelloProvider {
   }
 
   async readResource(uri: string): Promise<ResourceContent> {
+    console.error(`[HelloProvider] readResource called with uri: ${uri}`);
     if (uri === 'mcp://hello/welcome') {
       return {
         contents: [{
