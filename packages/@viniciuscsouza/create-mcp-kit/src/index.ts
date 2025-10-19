@@ -49,13 +49,19 @@ program
       console.log('\nDentro do diretório, você pode executar vários comandos:\n');
       console.log(`  npm install`);
       console.log(`    Instala as dependências.\n`);
-      console.log(`  npm inspect`);
-      console.log(`    Inicia o MCP Inspector.\n`);
+      console.log(`  npm run build`);
+      console.log(`    Compila o projeto.\n`);
+      console.log(`  npm start`);
+      console.log(`    Inicia o servidor de desenvolvimento.\n`);
       console.log(`  npm test`);
       console.log(`    Executa os testes.\n`);
+      console.log(`  npm run inspect`);
+      console.log(`    Inicia o inspector para testar os recursos do servidor.\n`);
       console.log('Sugerimos que você comece digitando:\n');
       console.log(`  cd ${projectDirectory}`);
       console.log(`  npm install`);
+      console.log(`  npm run build`);
+      console.log(`  npm run inspect`);
 
     } catch (error) {
       console.error('Ocorreu um erro ao criar o projeto:', error);
