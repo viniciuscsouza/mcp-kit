@@ -35,7 +35,7 @@ export class Application {
     this.providers.push(provider);
   }
 
-  public async listen(): Promise<void> {
+  public async listen(transport?: StdioServerTransport): Promise<void> {
     console.error('[MCP-Kit] Iniciando aplicação e processando providers...');
     
     for (const providerClass of this.providers) {
@@ -57,7 +57,7 @@ export class Application {
           finalToolId,
           {
             description: tool.description,
-            inputSchema: tool.inputSchema,
+            inputSchema: tool.inputSchema?.shape,
           },
           instance[tool.methodName].bind(instance)
         );
@@ -70,7 +70,10 @@ export class Application {
         console.error(`  - Registrando Prompt: '${finalPromptId}'`);
         this.mcpServer.registerPrompt(
           finalPromptId,
-          { description: prompt.description },
+          {
+            description: prompt.description,
+            argsSchema: prompt.inputSchema?.shape,
+          },
           instance[prompt.methodName].bind(instance)
         );
       }
@@ -86,16 +89,19 @@ export class Application {
               resourceName,
               resourceDef.uri,
               { description: resourceDef.description, mimeType: resourceDef.mimeType },
-              (uri, params) => instance.readResource(uri, params)
+              (uri, params) => {
+                console.error(`[MCP-Kit] readResource callback called with uri: ${uri.toString()}, params: ${JSON.stringify(params)}`);
+                return instance.readResource(uri.toString(), params);
+              }
             );
           }
         }
       }
     }
 
-    console.error('[MCP-Kit] Bootstrap completo. Conectando ao transporte stdio...');
-    const transport = new StdioServerTransport();
-    await this.mcpServer.connect(transport);
+    console.error('[MCP-Kit] Bootstrap completo. Conectando ao transporte...');
+    const finalTransport = transport || new StdioServerTransport();
+    await this.mcpServer.connect(finalTransport);
     console.error('[MCP-Kit] Servidor conectado e rodando.');
   }
 }

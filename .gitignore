@@ -1,5 +1,6 @@
 # Dependencies
 /node_modules
+**/node_modules
 
 # Build output
 /dist
@@ -17,3 +18,6 @@ lerna-debug.log*
 # Misc
 .DS_Store
 .npm
+
+/packages/example-server/logs
+/packages/create-mcp-kit

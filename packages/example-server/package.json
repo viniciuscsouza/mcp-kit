@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "start": "tsx src/main.ts",
-    "test": "vitest",
-    "build": "tsc"
+    "test": "vitest run",
+    "build": "tsc && npm run build:proxy",
+    "build:proxy": "tsc src/log-proxy.ts --outDir dist",
+    "start:proxy": "node dist/log-proxy.js"
   },
   "dependencies": {
     "mcp-kit": "0.0.1"

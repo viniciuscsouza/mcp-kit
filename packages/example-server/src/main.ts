@@ -1,8 +1,8 @@
-// Importa a classe principal do framework (que estamos construindo)
-import { Application } from 'mcp-kit';
+#!/usr/bin/env node
 
-// Importa os providers definidos no projeto
-import { HelloProvider } from './providers/hello.provider';
+import { Application } from 'mcp-kit';
+import { HelloProvider } from './providers';
+import { LoggingStdioServerTransport } from './LoggingStdioServerTransport';
 
 /**
  * Ponto de entrada principal do servidor.
@@ -15,12 +15,11 @@ function bootstrap() {
   });
 
   // 2. Registra os providers da aplicação
-  // O framework irá inspecionar HelloProvider em busca de @Tool, @Prompt, etc.
   app.addProvider(HelloProvider);
 
-  // 3. Inicia o servidor para escutar por conexões (via stdio por padrão)
-  console.error('Iniciando servidor MCP-Kit...');
-  app.listen();
+  // 3. Inicia o servidor com o transporte de logging
+  console.error('Iniciando servidor MCP-Kit com logging...');
+  app.listen(new LoggingStdioServerTransport());
   console.error('Servidor rodando e aguardando conexões.');
 }
 
