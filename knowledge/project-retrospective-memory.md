@@ -15,7 +15,7 @@ O objetivo foi criar um framework para TypeScript que simplifica e acelera o des
 - **Convenção sobre Configuração**: Adotamos convenções mandatórias para simplificar o uso:
   - **Nomenclatura de Arquivos**: Providers devem seguir o padrão `*.provider.ts`.
   - **Namespacing Automático**: A propriedade `name` do decorador `@Provider` é usada como um prefixo automático para os IDs de `Tools` e `Prompts` (ex: `hello.say`), evitando conflitos.
-- **Estrutura de Monorepo**: O projeto foi organizado em um monorepo com `npm workspaces`, separando o código do framework (`packages/mcp-kit`) do servidor de exemplo (`packages/example-server`).
+- **Estrutura de Monorepo**: O projeto foi organizado em um monorepo com `npm workspaces`, separando o código do framework (`packages/@viniciuscsouza/mcp-kit`) do servidor de exemplo (`packages/example-server`).
 - **Testes**: A estrutura de testes foi incluída desde o início usando `Vitest`.
   - O teste do framework (`application.test.ts`) valida a lógica de descoberta de capabilities usando mocks (`vi.doMock`).
   - O teste do servidor de exemplo (`hello.provider.test.ts`) valida a lógica de um provider específico.
@@ -60,7 +60,7 @@ O objetivo foi criar um framework para TypeScript que simplifica e acelera o des
     │   ├── tests
     │   │   └── hello.provider.test.ts
     │   └── tsconfig.json
-    └── mcp-kit
+    └── @viniciuscsouza/mcp-kit
         ├── dist
         ├── package.json
         ├── src

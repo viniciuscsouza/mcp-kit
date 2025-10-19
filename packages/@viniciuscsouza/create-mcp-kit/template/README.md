@@ -2,7 +2,7 @@
 
 Bem-vindo ao seu novo servidor MCP (Model Context Protocol), construído com o framework **MCP-Kit**!
 
-Este projeto foi gerado pela ferramenta `create-mcp-kit` e contém tudo o que você precisa para começar a desenvolver e expor suas próprias ferramentas, prompts e recursos para agentes de IA.
+Este projeto foi gerado pela ferramenta `@viniciuscsouza/create-mcp-kit` e contém tudo o que você precisa para começar a desenvolver e expor suas próprias ferramentas, prompts e recursos para agentes de IA.
 
 ## Como Começar
 

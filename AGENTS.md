@@ -29,13 +29,13 @@ O projeto atual é o desenvolvimento e manutenção do **MCP-Kit**, um ecossiste
 ├── package.json
 ├── README.md
 └── packages/
-    ├── create-mcp-kit/
+    ├── @viniciuscsouza/create-mcp-kit/
     │   ├── package.json
     │   └── src/
     ├── example-server/
     │   ├── package.json
     │   └── src/
-    └── mcp-kit/
+    └── @viniciuscsouza/mcp-kit/
         ├── package.json
         └── src/
 ```
