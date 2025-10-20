@@ -2,7 +2,10 @@ import { z } from 'zod';
 import type { CallToolResult, GetPromptResult } from '@modelcontextprotocol/sdk/types.js';
 import type { ReadResourceCallback } from '@modelcontextprotocol/sdk/server/mcp.js';
 
-// ResourceDefinition alinhado com a especificação MCP
+/**
+ * Represents the definition of a resource, aligned with the MCP specification.
+ * @deprecated This type is not currently used by the framework but is reserved for future use with resource providers.
+ */
 export interface ResourceDefinition {
   uri: string;
   name: string;
@@ -10,38 +13,57 @@ export interface ResourceDefinition {
   mimeType?: string;
 }
 
-// ResourceContent alinhado com a especificação MCP e o que o SDK espera
-// Replicando a estrutura de união de tipos que o SDK provavelmente usa
+/**
+ * Represents the content of a resource, aligned with the MCP specification.
+ * @deprecated This type is not currently used by the framework but is reserved for future use with resource providers.
+ */
 export interface ResourceContent {
   contents: Array<
     | {
         uri: string;
-        text: string; // text é obrigatório se for um tipo de texto
+        text: string;
         mimeType?: string;
         [key: string]: unknown;
       }
     | {
         uri: string;
-        blob: string; // blob é obrigatório se for um tipo binário
+        blob: string;
         mimeType?: string;
         [key: string]: unknown;
       }
   >;
-  [key: string]: unknown; // Para outras propriedades do SDK
+  [key: string]: unknown;
 }
 
-// Tipo para os parâmetros passados para readResource
+/**
+ * Represents the parameters that can be passed when reading a resource.
+ * @deprecated This type is not currently used by the framework but is reserved for future use with resource providers.
+ */
 export type ResourceParams = Parameters<ReadResourceCallback>[1];
 
-// Interface para provedores de recursos
+/**
+ * Defines the interface for a resource provider.
+ * @deprecated This interface is not currently used by the framework but is reserved for future use with resource providers.
+ */
 export interface IResourceProvider {
   listResources(): Promise<ResourceDefinition[]>;
   readResource(uri: string, params: ResourceParams): Promise<ResourceContent>;
 }
 
-// Tipos de retorno esperados para os handlers de Tool e Prompt
+/**
+ * Represents the expected return type for a tool handler.
+ * This is an alias for the `CallToolResult` type from the MCP SDK.
+ */
 export type ToolHandlerResult = CallToolResult;
+
+/**
+ * Represents the expected return type for a prompt handler.
+ * This is an alias for the `GetPromptResult` type from the MCP SDK.
+ */
 export type PromptHandlerResult = GetPromptResult;
 
-// Tipos para os schemas Zod
+/**
+ * A generic type representing any Zod object schema.
+ * This is used to type the `inputSchema` and `outputSchema` options in the decorators.
+ */
 export type AnyZodObject = z.ZodObject<z.ZodRawShape>;
