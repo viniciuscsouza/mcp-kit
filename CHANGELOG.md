@@ -18,6 +18,13 @@ e este projeto adere ao [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
   - Criado `knowledge/mcp-kit-project-rules.md` no monorepo com regras para projetos gerados (independência do monorepo, proibição do comando `npm start` na documentação gerada).
   - Atualizado `AGENTS.md` do monorepo para referenciar `mcp-kit-project-rules.md`.
 
+### Adicionado
+
+- **Documentação do Projeto:**
+  - Criado `README.md` e `CHANGELOG.md` para o workspace `@viniciuscsouza/mcp-kit`.
+  - Criado `README.md` e `CHANGELOG.md` para o workspace `@viniciuscsouza/create-mcp-kit`.
+  - Atualizado o `README.md` da raiz do monorepo com mais detalhes sobre o projeto, sua filosofia e links para a documentação dos workspaces.
+
 ### Removido
 
 - Pacote `example-server` (`packages/example-server/`) do monorepo, pois sua funcionalidade foi absorvida pelos projetos gerados pelo `create-mcp-kit`.
