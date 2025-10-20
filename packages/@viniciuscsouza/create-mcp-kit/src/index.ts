@@ -9,66 +9,72 @@ const program = new Command();
 
 program
   .name('@viniciuscsouza/create-mcp-kit')
-  .description('Cria um novo servidor para o MCP-Kit')
-  .argument('<project-directory>', 'O diretório para criar o projeto')
+  .description('Creates a new MCP-Kit server project')
+  .argument('<project-directory>', 'The directory to create the project in')
   .action(async (projectDirectory: string) => {
     const projectPath = path.resolve(process.cwd(), projectDirectory);
     
+    // __dirname is not available in ES modules, so we derive it
+    const __dirname = path.dirname(fileURLToPath(import.meta.url));
     const templatePath = path.resolve(__dirname, '..', 'template');
 
-    console.log(`Criando um novo servidor MCP-Kit em ${projectPath}...`);
+    console.log(`
+Creating a new MCP-Kit server in ${projectPath}...
+`);
 
     try {
-      // Verifica se o diretório já existe e não está vazio
+      // Check if the directory already exists and is not empty
       if (fs.existsSync(projectPath)) {
         const files = fs.readdirSync(projectPath);
         if (files.length > 0) {
-          console.error(`Erro: O diretório "${projectDirectory}" já existe e não está vazio.`);
+          console.error(`❌ Error: The directory "${projectDirectory}" already exists and is not empty.`);
           process.exit(1);
         }
       } else {
         fs.mkdirSync(projectPath, { recursive: true });
       }
 
-      // Copia os arquivos do template
+      // Copy template files
       await fs.copy(templatePath, projectPath);
 
-      // Atualiza o nome do projeto no package.json
+      // Update the project name in package.json
       const packageJsonPath = path.join(projectPath, 'package.json');
       const packageJson = await fs.readJson(packageJsonPath);
-      packageJson.name = projectDirectory;
+      packageJson.name = path.basename(projectDirectory); // Use the directory name as the project name
       await fs.writeJson(packageJsonPath, packageJson, { spaces: 2 });
 
-      // Renomeia o arquivo gitignore para .gitignore
+      // Rename gitignore to .gitignore
       const gitignorePath = path.join(projectPath, 'gitignore');
       if (fs.existsSync(gitignorePath)) {
         fs.renameSync(gitignorePath, path.join(projectPath, '.gitignore'));
       }
 
-      // Garante que o diretório 'logs' exista
+      // Ensure the 'logs' directory exists
       const logsPath = path.join(projectPath, 'logs');
       if (!fs.existsSync(logsPath)) {
         fs.mkdirSync(logsPath, { recursive: true });
       }
 
-      console.log('\nSucesso! Projeto criado em', projectPath);
-      console.log('\nDentro do diretório, você pode executar vários comandos:\n');
-      console.log(`  npm install`);
-      console.log(`    Instala as dependências.\n`);
-      console.log(`  npm run build`);
-      console.log(`    Compila o projeto.\n`);
-      console.log(`  npm test`);
-      console.log(`    Executa os testes.\n`);
-      console.log(`  npm run inspect`);
-      console.log(`    Inicia o inspector para testar os recursos do servidor.\n`);
-      console.log('Sugerimos que você comece digitando:\n');
+      console.log('✅ Success! Your new MCP-Kit project has been created.');
+      console.log(`
+To get started, run the following commands:
+`);
       console.log(`  cd ${projectDirectory}`);
       console.log(`  npm install`);
+      
+      console.log('\nAvailable commands:\n');
       console.log(`  npm run build`);
+      console.log(`    Builds the TypeScript source code for production.\n`);
+      console.log(`  npm test`);
+      console.log(`    Runs the test suite using Vitest.\n`);
       console.log(`  npm run inspect`);
+      console.log(`    Starts the MCP Inspector to interact with your server.`);
+      console.log(`    (Requires Node.js v22.7.5 or higher)\n`);
+      
+      console.log('Happy coding! ✨');
 
     } catch (error) {
-      console.error('Ocorreu um erro ao criar o projeto:', error);
+      console.error('\n❌ An error occurred while creating the project:', error);
       process.exit(1);
     }
   });
